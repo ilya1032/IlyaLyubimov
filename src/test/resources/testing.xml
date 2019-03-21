@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="SumSubMultDivAndParametrizedSuite" verbose="1">
+
+    <suite-files>
+        <suite-file path="SumSubSuite"/>
+        <suite-file path="MultDivSuite"/>
+    </suite-files>
+
+    <parameter name="positiveLong" value="125"/>
+    <parameter name="negativeLong" value="-33"/>
+
+    <test name="parametrizedTest">
+        <classes>
+            <class name="lab1.ParametrizedSignTest"/>
+        </classes>
+    </test>
+</suite>
