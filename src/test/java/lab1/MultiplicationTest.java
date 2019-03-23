@@ -16,6 +16,8 @@ public class MultiplicationTest {
 
     @Test(groups = {"Long"})
     public void longMultTest() {
+        // TODO обычно правило 1 тест - 1 assert.
+        // TODO пердлагаю разделить тесты и прибегруть к использованию DataProvider
         Assert.assertEquals(calculator.mult(5, 20), 100);
         Assert.assertEquals(calculator.mult(10, 10), 100);
         Assert.assertEquals(calculator.mult(0, Long.MAX_VALUE), 0);
@@ -27,6 +29,8 @@ public class MultiplicationTest {
 
     @Test(groups = {"Double"})
     public void doubleMultTest() {
+        // TODO обычно правило 1 тест - 1 assert.
+        // TODO пердлагаю разделить тесты и прибегруть к использованию DataProvider
         Assert.assertEquals(calculator.mult(3.0,2.25), 6.0, 0.0001);
         Assert.assertEquals(calculator.mult(25.5, -4.0), -102.0, 0.0001);
         Assert.assertEquals(calculator.mult(-17.64f, -5.0f), 88.0, 0.0001);

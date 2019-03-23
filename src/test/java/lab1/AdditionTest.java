@@ -16,6 +16,8 @@ public class AdditionTest {
 
     @Test(groups = {"Long"})
     public void longSumTest() {
+        // TODO обычно правило 1 тест - 1 assert
+        // TODO пердлагаю разделить тесты и прибегруть к использованию DataProvider
         Assert.assertEquals(calculator.sum(75, 25), 100);
         Assert.assertEquals(calculator.sum(Long.MAX_VALUE, Long.MIN_VALUE), -1);
         Assert.assertNotEquals(calculator.sum(1, 1), 100);
@@ -23,6 +25,8 @@ public class AdditionTest {
 
     @Test(groups = {"Double"})
     public void doubleSumTest() {
+        // TODO обычно правило 1 тест - 1 assert.
+        // TODO пердлагаю разделить тесты и прибегруть к использованию DataProvider
         Assert.assertEquals(calculator.sum(11.2, 22.1), 33.3, 0.0001);
         Assert.assertEquals(calculator.sum(0.0, 1.33), 1.33, 0.0001);
         Assert.assertNotEquals(calculator.sum(1.0, 1.0), 100.27, 0.0001);

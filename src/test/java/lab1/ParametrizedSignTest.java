@@ -1,6 +1,7 @@
 package lab1;
 
 import com.epam.tat.module4.Calculator;
+// TODO неиспользуемый импорт
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
@@ -20,6 +21,7 @@ public class ParametrizedSignTest {
 
     @Test(groups = {"Long"})
     @Parameters(value = "positiveLong")
+    // TODO Для каких целей используется параметризация?
     public void longPositiveSignTest(long positiveLong) {
         assertTrue(calculator.isPositive(positiveLong));
         assertTrue(calculator.isPositive(25));
@@ -29,6 +31,7 @@ public class ParametrizedSignTest {
 
     @Test(groups = {"Long"})
     @Parameters(value= "negativeLong")
+    // TODO Для каких целей используется параметризация?
     public void longNegativeSignTest(long negativeLong) {
         assertTrue(calculator.isNegative(negativeLong));
         assertTrue(calculator.isNegative(-25));
