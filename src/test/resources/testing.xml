@@ -4,8 +4,8 @@
 <suite name="SumSubMultDivAndParametrizedSuite" verbose="1">
 
     <suite-files>
-        <suite-file path="SumSubSuite"/>
-        <suite-file path="MultDivSuite"/>
+        <suite-file path="SumSubSuite.xml"/>
+        <suite-file path="MultDivSuite.xml"/>
     </suite-files>
 
     <parameter name="positiveLong" value="125"/>
