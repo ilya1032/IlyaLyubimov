@@ -3,17 +3,23 @@
 
 <suite name="SumSubMultDivAndParametrizedSuite" verbose="1">
 
-    <suite-files>
-        <suite-file path="SumSubSuite.xml"/>
-        <suite-file path="MultDivSuite.xml"/>
-    </suite-files>
+    <!--<suite-files>-->
+        <!--<suite-file path="SumSubSuite.xml"/>-->
+        <!--<suite-file path="MultDivSuite.xml"/>-->
+    <!--</suite-files>-->
 
-    <parameter name="positiveLong" value="125"/>
-    <parameter name="negativeLong" value="-33"/>
+    <!--<parameter name="positiveLong" value="125"/>-->
+    <!--<parameter name="negativeLong" value="-33"/>-->
 
-    <test name="parametrizedTest">
+    <!--<test name="parametrizedTest">-->
+        <!--<classes>-->
+            <!--<class name="lab1.ParametrizedSignTest"/>-->
+        <!--</classes>-->
+    <!--</test>-->
+
+    <test name="MantisTest">
         <classes>
-            <class name="lab1.ParametrizedSignTest"/>
+            <class name="hw2.mantisTests"/>
         </classes>
     </test>
 </suite>
