@@ -6,8 +6,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-//Исправлено: один assert в методе, реализованы dataProvider'ы
-
 public class AdditionTest {
 
     private Calculator calculator;
