@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class mantisTests {
+public class AddUserTest {
 
     private static WebDriver webDriver;
 
@@ -37,11 +37,11 @@ public class mantisTests {
             currentOSDriver = "macOS/chromedriver";
 
         System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")
-                        + "/src/test/resources/webdriver/chrome/" + currentOSDriver);
+                + "/src/test/resources/webdriver/chrome/" + currentOSDriver);
     }
 
     @Test
-    public void mantisTest() {
+    public void addUserTest() {
 
         //navigate to mantis.tiulp.in
         webDriver = new ChromeDriver();
@@ -54,18 +54,12 @@ public class mantisTests {
         //perform login
 
         webDriver.findElement(By.id("username")).sendKeys("administrator");
-        // TODO Локатор может быть более коротким;
-        // исправлено
         webDriver.findElement(By.xpath("//input[@value='Login']")).click();
 
         webDriver.findElement(By.id("password")).sendKeys("rootroot");
-        // TODO Локатор может быть более коротким
-        //исправлено
         webDriver.findElement(By.xpath("//input[@value='Login']")).click();
 
         //check login
-        // TODO Локатор может быть более коротким
-        //исправлено
         assertEquals(webDriver.findElement(
                 By.xpath("//span[@class='user-info']")).getText(),
                 "administrator");
@@ -92,16 +86,19 @@ public class mantisTests {
         assertEquals(webDriver.getTitle(), "Manage - MantisBT");
 
         //open Create New Project page
-        webDriver.findElement(By.linkText("Manage Projects")).click();
-        webDriver.findElement(By.xpath("//fieldset/button")).click();
+        webDriver.findElement(By.linkText("Manage Users")).click();
+        webDriver.findElement(By.linkText("Create New Account")).click();
 
         //check fields on Create Project menu
         try {
-            webDriver.findElement(By.cssSelector("#project-name[name='name']"));
-            webDriver.findElement(By.cssSelector("#project-status[name='status']"));
-            webDriver.findElement(By.cssSelector("#project-inherit-global[name='inherit_global']"));
-            webDriver.findElement(By.cssSelector("#project-view-state[name='view_state']"));
-            webDriver.findElement(By.cssSelector("#project-description[name='description']"));
+            webDriver.findElement(By.id("user-username"));
+            webDriver.findElement(By.id("user-realname"));
+            webDriver.findElement(By.id("email-field"));
+            webDriver.findElement(By.id("user-password"));
+            webDriver.findElement(By.id("user-verify-password"));
+            webDriver.findElement(By.id("user-access-level"));
+            webDriver.findElement(By.id("user-enabled"));
+            webDriver.findElement(By.id("user-protected"));
         } catch (NoSuchElementException e) {
             File file = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.FILE);
             try {
@@ -115,18 +112,38 @@ public class mantisTests {
             }
         }
 
-        webDriver.findElement(By.cssSelector("#project-name[name='name']"))
-                .sendKeys("Project by Ilya Lyubimov");
-        webDriver.findElement(By.cssSelector("#project-status[name='status']"))
-                .findElement(By.cssSelector("[value='10']")).click();
-        webDriver.findElement(By.cssSelector("#project-description[name='description']"))
-                .sendKeys("Project by Ilya Lyubimov "
-                        + new SimpleDateFormat("yyyy.MM.dd_HH:mm:ss").format(Calendar.getInstance().getTime()));
-        webDriver.findElement(By.cssSelector("[value='Add Project']")).click();
+        webDriver.findElement(By.id("user-username"))
+                .sendKeys("ilya1032");
+        webDriver.findElement(By.id("user-realname"))
+                .sendKeys("Ilya");
+        webDriver.findElement(By.id("email-field"))
+                .sendKeys("ilya@gmail.com");
+        webDriver.findElement(By.id("user-password"))
+                .sendKeys("123456");
+        webDriver.findElement(By.id("user-verify-password"))
+                .sendKeys("123456");
+
+        webDriver.findElement(By.xpath("//input[@value='Create User']")).click();
 
         //perform logout
         webDriver.findElement(By.className("user-info")).click();
         webDriver.findElement(By.xpath("//a[contains(., 'Logout')]")).click();
+
+        //Check title
+        assertEquals(webDriver.getTitle(), "MantisBT");
+
+        //perform login
+
+        webDriver.findElement(By.id("username")).sendKeys("ilya1032");
+        webDriver.findElement(By.xpath("//input[@value='Login']")).click();
+
+        webDriver.findElement(By.id("password")).sendKeys("123456");
+        webDriver.findElement(By.xpath("//input[@value='Login']")).click();
+
+        //check login
+        assertEquals(webDriver.findElement(
+                By.xpath("//span[@class='user-info']")).getText(),
+                "ilya1032");
 
     }
 
