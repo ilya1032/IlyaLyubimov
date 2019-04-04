@@ -19,8 +19,8 @@
 
     <test name="MantisTest">
         <classes>
-            <class name="hw2.mantisTests"/>
-            <class name="hw2.AddUserTest"/>
+            <class name="hw3.mantisTests"/>
+            <class name="hw3.AddUserTest"/>
         </classes>
     </test>
 </suite>
