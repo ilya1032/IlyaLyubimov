@@ -30,7 +30,7 @@ public class AddUserTest {
         webDriver = new ChromeDriver();
         webDriver.manage().window().maximize();
 
-        webDriver.get("https://mantis.tiulp.in/login_page_php");
+        webDriver.get("https://mantis.tiulp.in/login_page.php");
         pageObjectVoid = new PageObjectVoid(webDriver);
     }
 
