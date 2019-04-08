@@ -54,18 +54,12 @@ public class mantisTests {
         //perform login
 
         webDriver.findElement(By.id("username")).sendKeys("administrator");
-        // TODO Локатор может быть более коротким;
-        // исправлено
         webDriver.findElement(By.xpath("//input[@value='Login']")).click();
 
         webDriver.findElement(By.id("password")).sendKeys("rootroot");
-        // TODO Локатор может быть более коротким
-        //исправлено
         webDriver.findElement(By.xpath("//input[@value='Login']")).click();
 
         //check login
-        // TODO Локатор может быть более коротким
-        //исправлено
         assertEquals(webDriver.findElement(
                 By.xpath("//span[@class='user-info']")).getText(),
                 "administrator");
