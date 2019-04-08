@@ -9,6 +9,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
+// TODO Не очень хорошая практика иметь один PO для всех страниц.
+// TODO Каждый PO описывает отдельную сраницу
+// TODO Прошу учесть при выполнение HW4
 public class PageObjectVoid {
 
     private WebDriver driver;
