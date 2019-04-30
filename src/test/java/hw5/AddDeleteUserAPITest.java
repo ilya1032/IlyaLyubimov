@@ -2,7 +2,7 @@ package hw5;
 
 import static io.restassured.RestAssured.given;
 
-import hw5.User.MantisResponce;
+import hw5.User.MantisResponse;
 import hw5.User.User;
 import io.restassured.http.ContentType;
 import io.restassured.http.Header;
@@ -37,7 +37,7 @@ public class AddDeleteUserAPITest {
                         properties.getProperty("user.realname"),
                         properties.getProperty("user.email"));
 
-        MantisResponce createUser = given()
+        MantisResponse createUser = given()
                 .baseUri(properties.getProperty("mantis.url"))
                 .header(header)
                 .contentType(ContentType.JSON)
@@ -49,7 +49,7 @@ public class AddDeleteUserAPITest {
                         statusCode(201)
                 .extract().
                         response().
-                        as(MantisResponce.class);
+                        as(MantisResponse.class);
 
         user = createUser.getUser();
 

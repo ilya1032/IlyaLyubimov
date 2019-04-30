@@ -2,7 +2,7 @@ package hw5;
 
 import hw5.Issue.*;
 import hw5.Project.Project;
-import hw5.Project.ProjectResponce;
+import hw5.Project.ProjectResponse;
 import io.restassured.http.ContentType;
 import io.restassured.http.Header;
 import org.json.JSONObject;
@@ -79,7 +79,7 @@ public class AddDeleteUpdateIssuesAPITest {
     @Test
     public void createUpdateDeleteIssue() {
 
-        ProjectResponce projectResponce = given().
+        ProjectResponse projectResponse = given().
                 baseUri(baseUrl).
                 header(header).
                 contentType(ContentType.JSON)
@@ -89,9 +89,9 @@ public class AddDeleteUpdateIssuesAPITest {
                 .then().
                         contentType(ContentType.JSON).
                         statusCode(201)
-                .extract().response().as(ProjectResponce.class);
+                .extract().response().as(ProjectResponse.class);
 
-        project = projectResponce.getProject();
+        project = projectResponse.getProject();
 
         Issue issue =
                 new Issue(

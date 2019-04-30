@@ -3,7 +3,7 @@ package hw5.Project;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ProjectResponce {
+public class ProjectResponse {
 
     public static final String PROJECT_KEY = "project";
 
@@ -11,7 +11,7 @@ public class ProjectResponce {
     private final Project project;
 
     @JsonCreator
-    public ProjectResponce(
+    public ProjectResponse(
             @JsonProperty(PROJECT_KEY) Project project)
     {
         this.project = project;

@@ -1,7 +1,7 @@
 package hw5;
 
 import hw5.Project.Project;
-import hw5.Project.ProjectResponce;
+import hw5.Project.ProjectResponse;
 import hw5.Project.Status;
 import io.restassured.http.ContentType;
 import io.restassured.http.Header;
@@ -65,7 +65,7 @@ public class ProjectAPITest {
         updSubJson.put("project", subProjectJson);
         updSubJson.put("inherit_parent", true);
 
-        ProjectResponce responce = given().
+        ProjectResponse response = given().
                 baseUri(baseUrl).
                 header(header).
                 contentType(ContentType.JSON)
@@ -75,11 +75,11 @@ public class ProjectAPITest {
                 .then().
                         contentType(ContentType.JSON).
                         statusCode(201)
-                .extract().response().as(ProjectResponce.class);
+                .extract().response().as(ProjectResponse.class);
 
-        project = responce.getProject();
+        project = response.getProject();
 
-        responce = given().
+        response = given().
                 baseUri(baseUrl).
                 header(header).
                 contentType(ContentType.JSON)
@@ -89,9 +89,9 @@ public class ProjectAPITest {
                 .then().
                         contentType(ContentType.JSON).
                         statusCode(201)
-                .extract().response().as(ProjectResponce.class);
+                .extract().response().as(ProjectResponse.class);
 
-        subProject = responce.getProject();
+        subProject = response.getProject();
 
         given().
                 baseUri(baseUrl).
