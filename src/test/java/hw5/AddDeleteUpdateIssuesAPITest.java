@@ -19,26 +19,25 @@ public class AddDeleteUpdateIssuesAPITest {
 
     private Properties properties;
     private String baseUrl;
-    private String token;
+    private Header header;
     private Project project;
-    private hw5.Project.Status projectStatus;
     private Attachments firstFile;
     private Attachments secondFile;
     private IssueField category;
     private IssueFieldWithLabel severity;
     private IssueFieldWithLabel priority;
     private Status status;
-    private IssueWithAttachments issueWithAttachments;
 
-    @BeforeSuite
+    @BeforeSuite(alwaysRun = true)
     public void setUp() throws IOException {
         FileInputStream propertiesFile = new FileInputStream("src/test/resources/hw5.properties");
         properties = new Properties();
         properties.load(propertiesFile);
         baseUrl = properties.getProperty("mantis.url");
-        token = properties.getProperty("mantis.token");
+        String token = properties.getProperty("mantis.token");
+        header = new Header("Authorization", token);
 
-        projectStatus = new hw5.Project.Status(
+        hw5.Project.Status projectStatus = new hw5.Project.Status(
                 0,
                 properties.getProperty("project.status"),
                 properties.getProperty("project.status"));
@@ -82,7 +81,7 @@ public class AddDeleteUpdateIssuesAPITest {
 
         ProjectResponce projectResponce = given().
                 baseUri(baseUrl).
-                header(new Header("Authorization", token)).
+                header(header).
                 contentType(ContentType.JSON)
                 .body(project)
                 .when().
@@ -103,20 +102,18 @@ public class AddDeleteUpdateIssuesAPITest {
                         category,
                         severity,
                         priority,
-                        status,
-                        ""
+                        status
                 );
-        issueWithAttachments =
-                new IssueWithAttachments(
-                        issue,
-                        new Attachments[]{firstFile, secondFile}
-                );
+        IssueWithAttachments issueWithAttachments = new IssueWithAttachments(
+                issue,
+                new Attachments[]{firstFile, secondFile}
+        );
 
 
         IssueResponse issueResponse =
                 given().
                         baseUri(baseUrl).
-                        header(new Header("Authorization", token)).
+                        header(header).
                         contentType(ContentType.JSON).
                         body(issueWithAttachments)
                         .when().
@@ -133,7 +130,7 @@ public class AddDeleteUpdateIssuesAPITest {
 
         given().
                 baseUri(baseUrl).
-                header(new Header("Authorization", token)).
+                header(header).
                 contentType(ContentType.JSON).
                 body(issueJson.toString())
                 .when().
@@ -145,7 +142,7 @@ public class AddDeleteUpdateIssuesAPITest {
         //delete created project and issues to keep Mantis Clean
         given().
                 baseUri(baseUrl).
-                header(new Header("Authorization", token)).
+                header(header).
                 contentType(ContentType.JSON)
                 .when().
                 delete("/projects/" + project.getId())
@@ -161,7 +158,7 @@ public class AddDeleteUpdateIssuesAPITest {
 
         given().
                 baseUri(baseUrl).
-                header(new Header("Authorization", token)).
+                header(header).
                 contentType(ContentType.JSON).
                 body(issueJson.toString())
                 .when().

@@ -1,18 +1,14 @@
 package hw5.User;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.*;
 
-@Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
 
     public static final String ID_KEY = "id";
     public static final String NAME_KEY = "name";
+    public static final String SERIALIZATION_NAME_KEY = "username";
     public static final String REAL_NAME_KEY = "real_name";
     public static final String EMAIL_KEY = "email";
 
@@ -34,12 +30,12 @@ public class User {
         this.email = email;
     }
 
-    @JsonProperty(ID_KEY)
+    @JsonIgnore
     public int getId() {
         return id;
     }
 
-    @JsonProperty(NAME_KEY)
+    @JsonProperty(SERIALIZATION_NAME_KEY)
     public String getName() {
         return name;
     }

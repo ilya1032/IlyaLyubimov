@@ -1,12 +1,7 @@
 package hw5.Project;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.*;
 
-@Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Project {
@@ -33,7 +28,7 @@ public class Project {
         this.status = status;
     }
 
-    @JsonProperty(ID_KEY)
+    @JsonIgnore
     public int getId() {
         return id;
     }

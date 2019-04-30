@@ -19,9 +19,9 @@
 
     <test name="MantisTest">
         <classes>
-            <class name="hw4.AddProjectTest"/>
-            <class name="hw4.AddUserTest"/>
-            <class name="hw4.ViewIssuesTest"/>
+            <class name="hw5.AddDeleteUserAPITest"/>
+            <class name="hw5.ProjectAPITest"/>
+            <class name="hw5.AddDeleteUpdateIssuesAPITest"/>
         </classes>
     </test>
 </suite>

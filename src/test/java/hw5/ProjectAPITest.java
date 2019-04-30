@@ -17,24 +17,22 @@ import static io.restassured.RestAssured.given;
 
 public class ProjectAPITest {
 
-    private Properties properties;
     private String baseUrl;
-    private String token;
-    private Status projectStatus;
     private Project project;
-    private Status subProjectStatus;
     private Project subProject;
+    private Header header;
 
 
-    @BeforeSuite
+    @BeforeSuite(alwaysRun = true)
     public void setUp() throws IOException {
         FileInputStream propertiesFile = new FileInputStream("src/test/resources/hw5.properties");
-        properties = new Properties();
+        Properties properties = new Properties();
         properties.load(propertiesFile);
         baseUrl = properties.getProperty("mantis.url");
-        token = properties.getProperty("mantis.token");
+        String token = properties.getProperty("mantis.token");
+        header = new Header("Authorization", token);
 
-        projectStatus = new Status(
+        Status projectStatus = new Status(
                 0,
                 properties.getProperty("project.status"),
                 properties.getProperty("project.status"));
@@ -45,7 +43,7 @@ public class ProjectAPITest {
                 properties.getProperty("project.description"),
                 projectStatus);
 
-        subProjectStatus = new Status(
+        Status subProjectStatus = new Status(
                 0,
                 properties.getProperty("subproject.status"),
                 properties.getProperty("subproject.status"));
@@ -60,35 +58,18 @@ public class ProjectAPITest {
     @Test
     public void createProjectTest() {
 
-        JSONObject statusJson = new JSONObject();
-        statusJson.put(Status.LABEL_KEY, projectStatus.getLabel());
-        statusJson.put(Status.NAME_KEY, projectStatus.getName());
-
-        JSONObject projectJson = new JSONObject();
-        projectJson.put(Project.NAME_KEY, project.getName());
-        projectJson.put(Project.DESCRIPTION_KEY, project.getDescription());
-        projectJson.put(Project.STATUS_KEY, statusJson.toString());
-
-        JSONObject subStatusJson = new JSONObject();
-        subStatusJson.put(Status.LABEL_KEY, subProjectStatus.getLabel());
-        subStatusJson.put(Status.NAME_KEY, subProjectStatus.getName());
-
         JSONObject subProjectJson = new JSONObject();
         subProjectJson.put(Project.NAME_KEY, subProject.getName());
 
-        JSONObject addSubJson = new JSONObject();
-        addSubJson.put("project", subProjectJson);
-        addSubJson.put("inherit_parent", true);
-
-        subProjectJson.put(Project.DESCRIPTION_KEY, subProject.getDescription());
-        subProjectJson.put(Project.STATUS_KEY, subStatusJson.toString());
-
+        JSONObject updSubJson = new JSONObject();
+        updSubJson.put("project", subProjectJson);
+        updSubJson.put("inherit_parent", true);
 
         ProjectResponce responce = given().
                 baseUri(baseUrl).
-                header(new Header("Authorization", token)).
+                header(header).
                 contentType(ContentType.JSON)
-                .body(projectJson.toString())
+                .body(project)
                 .when().
                         post("/projects/")
                 .then().
@@ -100,9 +81,9 @@ public class ProjectAPITest {
 
         responce = given().
                 baseUri(baseUrl).
-                header(new Header("Authorization", token)).
+                header(header).
                 contentType(ContentType.JSON)
-                .body(subProjectJson.toString())
+                .body(subProject)
                 .when().
                         post("/projects/")
                 .then().
@@ -114,20 +95,18 @@ public class ProjectAPITest {
 
         given().
                 baseUri(baseUrl).
-                header(new Header("Authorization", token)).
+                header(header).
                 contentType(ContentType.JSON)
-                .body(addSubJson.toString())
+                .body(updSubJson.toString())
                 .when().
-                        post("/projects/" + project.getId() + "/subprojects")
+                post("/projects/" + project.getId() + "/subprojects")
                 .then().
-                        statusCode(204);
-
-        System.out.println(responce);
+                statusCode(204);
 
         //delete created projects to keep Mantis Clean
         given().
                 baseUri(baseUrl).
-                header(new Header("Authorization", token)).
+                header(header).
                 contentType(ContentType.JSON)
                 .when().
                 delete("/projects/" + project.getId())
@@ -136,7 +115,7 @@ public class ProjectAPITest {
 
         given().
                 baseUri(baseUrl).
-                header(new Header("Authorization", token)).
+                header(header).
                 contentType(ContentType.JSON)
                 .when().
                 delete("/projects/" + subProject.getId())
@@ -146,16 +125,15 @@ public class ProjectAPITest {
 
     @Test
     public void deleteNonExistingProject() {
-        System.out.println(
-                given().
-                        baseUri(baseUrl).
-                        header(new Header("Authorization", token)).
-                        contentType(ContentType.JSON)
-                        .when().
-                        delete("/projects/9000")
-                        .then().
-                        //MantisBT returns status code 403 for Non-existing projects
-                                statusCode(403).extract().statusLine());
+        given().
+                baseUri(baseUrl).
+                header(header).
+                contentType(ContentType.JSON)
+                .when().
+                delete("/projects/9000")
+                .then().
+                //MantisBT returns status code 403 for Non-existing projects
+                        statusCode(403).extract().statusLine();
     }
 
 }
